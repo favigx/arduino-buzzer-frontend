@@ -24,7 +24,8 @@ function ShowBuzzerData() {
   
           setData(fetchedData);
   
-          const uniqueDates = Array.from(new Set(fetchedData.map(item => item.date)));
+          const uniqueDates = Array.from(new Set(fetchedData.map(item => item.date)))
+                                   .sort((a, b) => b.localeCompare(a));
   
           if (uniqueDates.includes(selectedDate)) {
             setDates(uniqueDates);
@@ -46,7 +47,7 @@ function ShowBuzzerData() {
     const interval = setInterval(fetchData, 10000);
   
     return () => clearInterval(interval);
-  }, [selectedDate]); 
+  }, [selectedDate]);
 
   useEffect(() => {
     const filtered = data.filter(item => item.date === selectedDate);
@@ -86,7 +87,7 @@ function ShowBuzzerData() {
           <Tooltip />
           <CartesianGrid strokeDasharray="3 3" />
           <Legend />
-          <Line type="monotone" dataKey="buzzCount" stroke="#8884d8" />
+          <Line type="monotone" dataKey="buzzCount" stroke="#8884d8" name="Antal buzzes i timmen" />
         </LineChart>
       </ResponsiveContainer>
       <p>Grafen uppdateras 1 gång i timmen</p>
